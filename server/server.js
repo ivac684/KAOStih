@@ -6,6 +6,7 @@ const nodemailer = require("nodemailer");
 
 const app = express();
 const PORT = 5000;
+const path = require("path");
 
 app.use(cors());
 app.use(express.json());
@@ -36,15 +37,30 @@ app.get("/zadnji-stih", (req, res) => {
 });
 
 const kreirajPDF = (filePath, callback) => {
-  const doc = new PDFDocument();
+  const doc = new PDFDocument({ margin: 40 });
   const stream = fs.createWriteStream(filePath);
   doc.pipe(stream);
 
-  doc.fontSize(20).text("KAOStih", { align: "center" }).moveDown();
-  doc.fontSize(14);
+  const robotoFontPath = path.join(__dirname, "fonts", "Roboto-Medium.ttf");
+  doc.registerFont("Roboto-Medium", robotoFontPath);
 
-  stihovi.forEach((stih, index) => {
-    doc.text(`${stih}`).moveDown(0.5);
+  doc
+    .font("Roboto-Medium")
+    .fontSize(18)
+    .fillColor("#000000")
+    .text("KAOStih", {
+      align: "center",
+    })
+    .moveDown(1.5);
+
+  doc.font("Roboto-Medium").fontSize(14).fillColor("#333333");
+
+  stihovi.forEach((stih) => {
+    doc.text(stih, {
+      align: "center",
+      lineGap: 6,
+    });
+    doc.moveDown(0.5);
   });
 
   doc.end();
