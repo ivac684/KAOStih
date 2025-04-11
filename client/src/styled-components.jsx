@@ -36,6 +36,9 @@ export const Title = styled.h1`
   font-weight: bold;
   margin-top: 25px;
   margin-bottom: 25px;
+  @media (max-height: 780px) {
+    font-size: 5rem;
+  }
 `;
 
 export const Description = styled.p`
@@ -68,6 +71,10 @@ export const Card = styled.div`
       rgba(0, 0, 0, 0.1) 50%
     );
     clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+
+  @media (max-height: 850px) {
+    height: 150px;
   }
 `;
 
@@ -121,6 +128,10 @@ export const PDFButton = styled.button`
   &:active {
     background-color: ${(props) => props.activeColor || "#b8a165"};
   }
+  @media (max-height: 850px) {
+    padding: 7px 10px;
+    margin-bottom: 5px;
+  }
 `;
 
 export const Input = styled.input`
@@ -144,6 +155,9 @@ export const EmailContainer = styled.div`
   margin-top: 30px;
   width: 400px;
   max-width: 600px;
+  @media (max-height: 850px) {
+    padding: 2px;
+  }
 `;
 
 export const ContentWrapper = styled.div`
