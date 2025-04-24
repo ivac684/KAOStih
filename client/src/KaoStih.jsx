@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import emailjs from "emailjs-com";
 import * as Styled from "./styled-components";
 
 export default function Kaostih() {
@@ -9,23 +8,38 @@ export default function Kaostih() {
   const [poruka, setPoruka] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/zadnji-stih")
+    fetch("http://localhost:5000/svi-stihovi")
       .then((res) => res.json())
       .then((data) => {
-        setStihovi([data.zadnjiStih]);
+        setStihovi(data.sviStihovi);
       });
   }, []);
 
   const dodajStih = () => {
     if (!noviStih.trim()) return;
+
     fetch("http://localhost:5000/dodaj-stih", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stih: noviStih }),
-    }).then(() => {
-      setStihovi([...stihovi, noviStih]);
-      setNoviStih("");
-    });
+    })
+      .then((res) => {
+        if (!res.ok) {
+          // ako backend vrati grešku, baci eksplicitnu grešku
+          return res.json().then((data) => {
+            throw new Error(data.message || "Greška pri dodavanju stiha");
+          });
+        }
+        setNoviStih("");
+        return fetch("http://localhost:5000/svi-stihovi");
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setStihovi(data.sviStihovi);
+      })
+      .catch((err) => {
+        console.error("Greška pri fetchanju:", err.message);
+      });
   };
 
   const preuzmiPDF = () => {
@@ -38,31 +52,21 @@ export default function Kaostih() {
       return;
     }
 
-    const pjesma = stihovi.join("\n");
-
-    const templateParams = {
-      to_email: email,
-      subject: "Tvoja pjesma",
-      message: pjesma,
-    };
-
-    emailjs
-      .send(
-        "service_a5gs14k",
-        "template_89e2kqb",
-        templateParams,
-        "eVx7dCtGOclVMeF1S"
-      )
-      .then(
-        (response) => {
-          setPoruka("Email poslan!");
-        },
-        (error) => {
-          setPoruka("Greška pri slanju emaila");
-          console.error(error);
-        }
-      );
+    fetch("http://localhost:5000/posalji-email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setPoruka(data.message);
+      })
+      .catch((err) => {
+        console.error("Greška:", err);
+        setPoruka("Greška pri slanju emaila");
+      });
   };
+
   const pokreniPrintanje = () => {
     fetch("http://localhost:5000/svi-stihovi")
       .then((res) => res.json())
