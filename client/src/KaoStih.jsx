@@ -8,7 +8,7 @@ export default function Kaostih() {
   const [poruka, setPoruka] = useState("");
 
   useEffect(() => {
-    fetch("http://localhost:5000/svi-stihovi")
+    fetch(`https://kaostihbackend.onrender.com/svi-stihovi`)
       .then((res) => res.json())
       .then((data) => {
         setStihovi(data.sviStihovi);
@@ -18,20 +18,19 @@ export default function Kaostih() {
   const dodajStih = () => {
     if (!noviStih.trim()) return;
 
-    fetch("http://localhost:5000/dodaj-stih", {
+    fetch(`https://kaostihbackend.onrender.com/dodaj-stih`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stih: noviStih }),
     })
       .then((res) => {
         if (!res.ok) {
-          // ako backend vrati grešku, baci eksplicitnu grešku
           return res.json().then((data) => {
             throw new Error(data.message || "Greška pri dodavanju stiha");
           });
         }
         setNoviStih("");
-        return fetch("http://localhost:5000/svi-stihovi");
+        return fetch(`https://kaostihbackend.onrender.com/svi-stihovi`);
       })
       .then((res) => res.json())
       .then((data) => {
@@ -43,7 +42,7 @@ export default function Kaostih() {
   };
 
   const preuzmiPDF = () => {
-    window.location.href = "http://localhost:5000/preuzmi-pdf";
+    window.location.href = `https://kaostihbackend.onrender.com/preuzmi-pdf`;
   };
 
   const posaljiEmail = () => {
@@ -52,7 +51,7 @@ export default function Kaostih() {
       return;
     }
 
-    fetch("http://localhost:5000/posalji-email", {
+    fetch(`https://kaostihbackend.onrender.com/posalji-email`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email }),
@@ -68,7 +67,7 @@ export default function Kaostih() {
   };
 
   const pokreniPrintanje = () => {
-    fetch("http://localhost:5000/svi-stihovi")
+    fetch(`https://kaostihbackend.onrender.com/svi-stihovi`)
       .then((res) => res.json())
       .then((data) => {
         const pjesma = data.sviStihovi.join("\n");
