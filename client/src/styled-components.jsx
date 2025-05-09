@@ -152,7 +152,6 @@ export const EmailContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 30px;
   width: 400px;
   max-width: 600px;
   @media (max-height: 850px) {

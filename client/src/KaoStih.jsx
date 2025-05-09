@@ -167,26 +167,26 @@ export default function Kaostih() {
           <div
             style={{ display: "flex", gap: "20px", justifyContent: "center" }}
           >
-            <Styled.PDFButton
+            {/* <Styled.PDFButton
               bgColor="#EBD18B"
               hoverColor="#d1b477"
               activeColor="#b8a165"
               onClick={preuzmiPDF}
             >
               Preuzmi PDF
-            </Styled.PDFButton>
+            </Styled.PDFButton> */}
 
-            <Styled.PDFButton
+            {/* <Styled.PDFButton
               bgColor="#CC9703"
               hoverColor="#b88c2d"
               activeColor="#9e7b2e"
               onClick={pokreniPrintanje}
             >
               Isprintaj
-            </Styled.PDFButton>
+            </Styled.PDFButton> */}
           </div>
           <Styled.EmailContainer>
-            <p style={{ fontWeight: "bold", marginBottom: "8px" }}>
+            <p style={{ fontWeight: "bold", marginBottom: "5px" }}>
               Pošalji mi pjesmu na email!
             </p>
             <Styled.Input
