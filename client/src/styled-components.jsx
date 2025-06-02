@@ -29,6 +29,10 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-height: 720px) {
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
 `;
 
 export const Title = styled.h1`
@@ -47,35 +51,6 @@ export const Description = styled.p`
   text-transform: uppercase;
   font-weight: bold;
   margin-bottom: 50px;
-`;
-
-export const Card = styled.div`
-  background-color: ${(props) => (props.yellow ? "#CC9703" : "#EBD18B")};
-  padding: 16px;
-  border-radius: 3px;
-  width: 400px;
-  height: 200px;
-  position: relative;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-
-  &::before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(
-      135deg,
-      transparent 50%,
-      rgba(0, 0, 0, 0.1) 50%
-    );
-    clip-path: polygon(100% 0, 0 100%, 100% 100%);
-  }
-
-  @media (max-height: 850px) {
-    height: 150px;
-  }
 `;
 
 export const Textarea = styled.textarea`
@@ -135,27 +110,74 @@ export const PDFButton = styled.button`
 `;
 
 export const Input = styled.input`
-  width: 100%;
+  width: 80%;
   color: black;
-  font-color: black;
   padding: 8px;
   border-radius: 4px;
   border: none;
   font-size: 1rem;
   margin-top: 16px;
+  box-sizing: border-box;
+`;
+
+export const Card = styled.div`
+  background-color: ${(props) => (props.yellow ? "#CC9703" : "#EBD18B")};
+  padding: 16px;
+  border-radius: 3px;
+  width: 400px;
+  height: 200px;
+  position: relative;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(
+      135deg,
+      transparent 50%,
+      rgba(0, 0, 0, 0.1) 50%
+    );
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: auto;
+    padding: 12px;
+  }
+
+  @media (max-height: 850px) {
+    height: 150px;
+  }
 `;
 
 export const EmailContainer = styled.div`
   background-color: rgb(185, 34, 34);
-  padding: 10px;
-  border-radius: 4px;
+  padding: 24px;
+  border-radius: 3px;
+  width: 450px;
+  height: 220px;
+  position: relative;
+  box-sizing: border-box;
+
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 400px;
-  max-width: 600px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    width: 90%;
+    height: auto;
+    padding: 16px;
+  }
+
   @media (max-height: 850px) {
-    padding: 2px;
+    height: 180px;
   }
 `;
 
@@ -167,4 +189,75 @@ export const ContentWrapper = styled.div`
   width: 100%;
   max-width: 1200px;
   gap: 40px;
+`;
+export const CardsWrapper = styled.div`
+  display: flex;
+  gap: 20px;
+  flex: 1;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+export const MobileStyle = createGlobalStyle`
+  @media (max-width: 768px) {
+    ${Container} {
+     overflow-y: scroll;
+     overflow-x: hidden;
+      padding: 14px;
+    }
+
+    ${Title} {
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    ${Description} {
+      font-size: 0.95rem;
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 0 10px;
+    }
+
+    ${Card} {
+      width: 90%;
+      height: auto;
+      padding: 12px;
+    }
+
+    ${Textarea} {
+      width: 90%;
+      height: 100px;
+      font-size: 0.9rem;
+    }
+
+    ${Button} {
+      width: 100%;
+      margin-top: 12px;
+    }
+
+    ${PDFButton} {
+      width: 90%;
+    }
+
+    ${Input} {
+      font-size: 0.9rem;
+    }
+
+    ${EmailContainer} {
+      width: 90%;
+      height: auto;
+      padding: 12px;
+      justify-content: center;
+      align-items: center;
+    }
+
+  ${ContentWrapper} {
+    flex-direction: column;
+    padding: 0 10px;
+    align-items: center;
+  }
+  }
 `;

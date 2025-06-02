@@ -129,7 +129,7 @@ export default function Kaostih() {
         <br /> Napišite sljedeći stih kako bi se pjesma nastavila.
       </Styled.Description>
       <Styled.ContentWrapper>
-        <div style={{ display: "flex", gap: "20px", flex: 1 }}>
+        <Styled.CardsWrapper>
           <Styled.Card yellow>
             <h2
               style={{
@@ -161,7 +161,7 @@ export default function Kaostih() {
               Pošalji
             </Styled.Button>
           </Styled.Card>
-        </div>
+        </Styled.CardsWrapper>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
@@ -193,13 +193,6 @@ export default function Kaostih() {
               placeholder="Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              style={{
-                width: "280px",
-                padding: "10px",
-                fontSize: "0.9rem",
-                backgroundColor: "white",
-                color: "black",
-              }}
             />
             <Styled.PDFButton
               onClick={posaljiEmail}
