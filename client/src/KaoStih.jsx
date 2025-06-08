@@ -147,7 +147,7 @@ export default function Kaostih() {
               {stihovi.length > 0 ? (
                 <li>{stihovi[stihovi.length - 1]}</li>
               ) : (
-                <li>Nema stihova</li>
+                <li>(Učitavanje...)</li>
               )}
             </ul>
           </Styled.Card>
@@ -187,7 +187,7 @@ export default function Kaostih() {
           </div>
           <Styled.EmailContainer>
             <p style={{ fontWeight: "bold", marginBottom: "5px" }}>
-              Pošalji mi pjesmu na email!
+              Za preuzimanje pjesme u PDF-u unesi svoj email.
             </p>
             <Styled.Input
               placeholder="Email"
